@@ -1,0 +1,57 @@
+body {
+    background-color: #f4f7fa;
+    font-family: 'Arial', sans-serif;
+}
+
+h1, h2 {
+    color: #0056b3;
+}
+
+h5 {
+    color: #007bff;
+}
+
+.card {
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 10px 10px 0 0;
+    padding: 15px;
+}
+
+.code-block {
+    position: relative;
+}
+
+pre {
+    background-color: #e9ecef;
+    padding: 15px;
+    border-radius: 5px;
+    overflow-x: auto;
+    margin-bottom: 0;
+}
+
+.copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 1;
+}
+
+ol {
+    padding-left: 20px;
+}
+
+.container {
+    max-width: 800px;
+}
+
+p {
+    margin-bottom: 10px;
+}

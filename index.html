@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSH Key Setup for GitHub on RHEL</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">SSH Key Setup for GitHub on RHEL</h1>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>Steps to Add an SSH Key for GitHub on RHEL</h2>
+            </div>
+            <div class="card-body">
+                <ol>
+                    <li>
+                        <h5>Check for Existing SSH Keys</h5>
+                        <p>Open a terminal on your RHEL system and run the following command to check for existing SSH keys:</p>
+                        <div class="code-block">
+                            <pre><code class="language-bash">ls -al ~/.ssh</code></pre>
+                            <button class="btn btn-outline-primary btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <p>If you see files like <code>id_rsa</code> and <code>id_rsa.pub</code>, you already have an SSH key.</p>
+                    </li>
+
+                    <li>
+                        <h5>Generate a New SSH Key</h5>
+                        <p>Run the following command to generate a new SSH key:</p>
+                        <div class="code-block">
+                            <pre><code class="language-bash">ssh-keygen -t ed25519 -C "your_email@example.com"</code></pre>
+                            <button class="btn btn-outline-primary btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <p>If your system doesn't support <code>ed25519</code>, use:</p>
+                        <div class="code-block">
+                            <pre><code class="language-bash">ssh-keygen -t rsa -b 4096 -C "your_email@example.com"</code></pre>
+                            <button class="btn btn-outline-primary btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                    </li>
+
+                    <li>
+                        <h5>Add the SSH Key to the SSH Agent</h5>
+                        <p>Start the SSH agent and add the private key:</p>
+                        <div class="code-block">
+                            <pre><code class="language-bash">eval "$(ssh-agent -s)"</code></pre>
+                            <button class="btn btn-outline-primary btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block">
+                            <pre><code class="language-bash">ssh-add ~/.ssh/id_rsa</code></pre>
+                            <button class="btn btn-outline-primary btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                    </li>
+
+                    <li>
+                        <h5>Copy the SSH Key to Your Clipboard</h5>
+                        <p>Run the following command to display your public SSH key:</p>
+                        <div class="code-block">
+                            <pre><code class="language-bash">cat ~/.ssh/id_rsa.pub</code></pre>
+                            <button class="btn btn-outline-primary btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <p>Highlight and copy the output to add it to your GitHub account.</p>
+                    </li>
+
+                    <li>
+                        <h5>Add the SSH Key to Your GitHub Account</h5>
+                        <ol>
+                            <li>Log into GitHub.</li>
+                            <li>Navigate to <strong>Settings &gt; SSH and GPG keys</strong>.</li>
+                            <li>Click <strong>New SSH key</strong>, give it a title, and paste your public key.</li>
+                            <li>Click <strong>Add SSH key</strong>.</li>
+                        </ol>
+                    </li>
+
+                    <li>
+                        <h5>Test the SSH Connection</h5>
+                        <p>To verify the SSH connection, run:</p>
+                        <div class="code-block">
+                            <pre><code class="language-bash">ssh -T git@github.com</code></pre>
+                            <button class="btn btn-outline-primary btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                    </li>
+
+                    <li>
+                        <h5>Using SSH with GitHub</h5>
+                        <p>To clone a repository using SSH, use the following command:</p>
+                        <div class="code-block">
+                            <pre><code class="language-bash">git clone git@github.com:username/repository.git</code></pre>
+                            <button class="btn btn-outline-primary btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-header">
+                <h2>Example Workflow</h2>
+            </div>
+            <div class="card-body">
+                <ol>
+                    <li>
+                        <h5>Clone a Repository</h5>
+                        <div class="code-block">
+                            <pre><code class="language-bash">git clone git@github.com:username/repository.git</code></pre>
+                            <button class="btn btn-outline-primary btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                    </li>
+                    <li>
+                        <h5>Make Changes Locally</h5>
+                        <p>Edit your project files locally as needed.</p>
+                    </li>
+                    <li>
+                        <h5>Add and Commit Changes</h5>
+                        <div class="code-block">
+                            <pre><code class="language-bash">git add .</code></pre>
+                            <button class="btn btn-outline-primary btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-block">
+                            <pre><code class="language-bash">git commit -m "Describe your changes"</code></pre>
+                            <button class="btn btn-outline-primary btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                    </li>
+                    <li>
+                        <h5>Push Changes to GitHub</h5>
+                        <div class="code-block">
+                            <pre><code class="language-bash">git push origin main</code></pre>
+                            <button class="btn btn-outline-primary btn-sm copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
